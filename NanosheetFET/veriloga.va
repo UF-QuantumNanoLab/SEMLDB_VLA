@@ -10781,7 +10781,7 @@ module SiNanosheetFET_NFET_ML(d, g, s);
     q_ml_raw = fh_l1_0;
     qg = Wid * qdensity_scale * qraw_to_c * q_ml_raw;
     qs = -2.0/3.0 * qg;
-    //qd = -1.0/3.0 * qg;
+    qd = -1.0/3.0 * qg;
 
 
 
@@ -10814,6 +10814,6 @@ module SiNanosheetFET_NFET_ML(d, g, s);
     
     I(g) <+ ddt(qg);
     I(s) <+ ddt(qs);
-    //I(d) <+ ddt(qd);
+    I(d) <+ ddt(qd);
   end
 endmodule
