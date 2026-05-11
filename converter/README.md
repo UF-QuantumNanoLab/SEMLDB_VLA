@@ -91,7 +91,7 @@ without weights.
 
 ### Currently available architectures
 
-`SiFET`, `CNTFET`, `HFET`, `DiamondFET`, `NMOS`
+`SiFET`, `2DFET`, `CNTFET`, `HFET`, `DiamondFET`, `NMOS`
 
 ---
 
@@ -190,6 +190,13 @@ python universal_export.py `
     --out outputs/CNTFET/cntfet.va `
     --module-name CNTFETVA `
     --arch CNTFET
+
+## 2DFET
+python universal_export.py `
+    --checkpoint checkpoints/2DFET/2DFET.pth `
+    --out outputs/2DFET/2dfet.va `
+    --module-name TwoDFETVA `
+    --arch 2DFET
 
 ## 3.DiamondFET
 python universal_export.py `

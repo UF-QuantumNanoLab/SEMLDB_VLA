@@ -18,6 +18,8 @@ def load_state_dict(path: str) -> dict:
     blob = torch.load(path, map_location="cpu")
     if isinstance(blob, dict) and "state_dict" in blob and isinstance(blob["state_dict"], dict):
         blob = blob["state_dict"]
+    elif isinstance(blob, dict) and "model_state_dict" in blob and isinstance(blob["model_state_dict"], dict):
+        blob = blob["model_state_dict"]
     if not isinstance(blob, dict):
         raise ExportError("Checkpoint is not a PyTorch state_dict.")
 
