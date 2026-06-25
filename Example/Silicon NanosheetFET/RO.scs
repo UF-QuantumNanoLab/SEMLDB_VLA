@@ -1,0 +1,66 @@
+// Generated for: spectre
+// Generated on: May 13 11:19:18 2026
+// Design library name: example
+// Design cell name: 3_stage_ring_osc_fringing_cap
+// Design view name: schematic
+simulator lang=spectre
+global 0
+
+// Library name: example
+// Cell name: 3_stage_ring_osc_fringing_cap
+// View name: schematic
+I47 (vout n2 vdd) SiNanosheetFET_PFET_ML tox=2 Lg=10 eps_ox=4 V_th=-0.2 \
+        ln_eps=1e-05 smooth_delta=1e-12 vds_floor=1e-06 \
+        vds_sign_smooth=0.001 exp_arg_limit=80 log_id_min=-120 \
+        log_id_max=80 gmin_ds=1e-12 Wid=1 qraw_to_c=1e-16 qdensity_scale=1
+I41 (n1 vout vdd) SiNanosheetFET_PFET_ML tox=2 Lg=10 eps_ox=4 V_th=-0.2 \
+        ln_eps=1e-05 smooth_delta=1e-12 vds_floor=1e-06 \
+        vds_sign_smooth=0.001 exp_arg_limit=80 log_id_min=-120 \
+        log_id_max=80 gmin_ds=1e-12 Wid=1 qraw_to_c=1e-16 qdensity_scale=1
+I42 (n2 n1 vdd) SiNanosheetFET_PFET_ML tox=2 Lg=10 eps_ox=4 V_th=-0.2 \
+        ln_eps=1e-05 smooth_delta=1e-12 vds_floor=1e-06 \
+        vds_sign_smooth=0.001 exp_arg_limit=80 log_id_min=-120 \
+        log_id_max=80 gmin_ds=1e-12 Wid=1 qraw_to_c=1e-16 qdensity_scale=1
+V2 (vdd 0) vsource dc=500.0m type=dc
+I44 (n2 n1 0) SiNanosheetFET_NFET_ML tox=2 Lg=10 eps_ox=4 V_th=0.2 \
+        ln_eps=1e-05 smooth_delta=1e-12 vds_floor=1e-06 \
+        vds_sign_smooth=0.001 exp_arg_limit=80 log_id_min=-120 \
+        log_id_max=80 gmin_ds=1e-12 Wid=1 qraw_to_c=1e-16 qdensity_scale=1
+I45 (vout n2 0) SiNanosheetFET_NFET_ML tox=2 Lg=10 eps_ox=4 V_th=0.2 \
+        ln_eps=1e-05 smooth_delta=1e-12 vds_floor=1e-06 \
+        vds_sign_smooth=0.001 exp_arg_limit=80 log_id_min=-120 \
+        log_id_max=80 gmin_ds=1e-12 Wid=1 qraw_to_c=1e-16 qdensity_scale=1
+I14 (n1 vout 0) SiNanosheetFET_NFET_ML tox=2 Lg=10 eps_ox=4 V_th=0.2 \
+        ln_eps=1e-05 smooth_delta=1e-12 vds_floor=1e-06 \
+        vds_sign_smooth=0.001 exp_arg_limit=80 log_id_min=-120 \
+        log_id_max=80 gmin_ds=1e-12 Wid=1 qraw_to_c=1e-16 qdensity_scale=1
+C11 (n2 0) capacitor c=200.0a
+C6 (n2 n1) capacitor c=200.0a
+C10 (vout n2) capacitor c=200.0a
+C3 (vout 0) capacitor c=200.0a
+C5 (n1 n2) capacitor c=200.0a
+C9 (n2 vout) capacitor c=200.0a
+C4 (vdd n1) capacitor c=200.0a
+C7 (n1 0) capacitor c=200.0a
+C2 (n1 vout) capacitor c=200.0a
+C0 (vdd vout) capacitor c=200.0a
+C8 (vdd n2) capacitor c=200.0a
+C1 (vout n1) capacitor c=200.0a
+nodeset vout=0 n2=0.25 n1=0.5 
+simulatorOptions options psfversion="1.4.0" reltol=1e-3 vabstol=1e-6 \
+    iabstol=1e-12 temp=27 tnom=27 scalem=1.0 scale=1.0 gmin=1e-12 rforce=1 \
+    maxnotes=5 maxwarns=5 digits=5 cols=80 pivrel=1e-3 \
+    sensfile="../psf/sens.output" checklimitdest=psf 
+tran tran stop=300p maxstep=0.5p ic=node skipdc=yes write="spectre.ic" \
+    writefinal="spectre.fc" annotate=status maxiters=5 
+finalTimeOP info what=oppoint where=rawfile
+modelParameter info what=models where=rawfile
+element info what=inst where=rawfile
+outputParameter info what=output where=rawfile
+designParamVals info what=parameters where=rawfile
+primitives info what=primitives where=rawfile
+subckts info what=subckts where=rawfile
+save vout n1 n2 
+saveOptions options save=allpub
+ahdl_include "/ecel/UFAD/tanvir.ahmed/Desktop/Verilog/SiNanosheetFET/ade/example/pfet/veriloga/veriloga.va"
+ahdl_include "/ecel/UFAD/tanvir.ahmed/Desktop/Verilog/SiNanosheetFET/ade/example/nfet/veriloga/veriloga.va"

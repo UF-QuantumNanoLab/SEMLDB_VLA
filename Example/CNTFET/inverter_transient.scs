@@ -1,0 +1,40 @@
+// Generated for: spectre
+// Generated on: May 18 06:01:50 2026
+// Design library name: example
+// Design cell name: inverter
+// Design view name: schematic
+simulator lang=spectre
+global 0
+parameters vdd=0.5 vg=0.5
+include "/apps/cds/IC618/local/GPDK045/gpdk045/../models/spectre/gpdk045.scs" section=mc
+
+// Library name: example
+// Cell name: inverter
+// View name: schematic
+I0 (vout vin 0) CNTFET_VA tox=2 Lg=10 eps_ox=3.9 V_th=0.258 Wid=1 \
+        smooth_delta=1e-12 vds_floor=1e-06 gmin_ds=1e-12
+I1 (vout vin vdd) CNTFET_PFET_VA tox=2 Lg=10 eps_ox=3.9 V_th=-0.258 Wid=1 \
+        smooth_delta=1e-12 vds_floor=1e-06 gmin_ds=1e-12
+V3 (net1 0) vsource dc=vg type=dc
+V1 (vdd 0) vsource dc=vdd type=dc
+V2 (vin 0) vsource dc=0 type=pulse val0=0 val1=500.0m period=100p delay=0 \
+        rise=10f fall=10f width=50p
+C0 (vout 0) capacitor c=20.00a
+nodeset vout=0 
+simulatorOptions options psfversion="1.4.0" reltol=1e-3 vabstol=1e-8 \
+    iabstol=1e-10 temp=27 tnom=27 homotopy=all scalem=1.0 scale=1.0 \
+    gmin=1e-12 rforce=1 maxnotes=5 maxwarns=5 digits=5 cols=80 pivrel=1e-3 \
+    sensfile="../psf/sens.output" checklimitdest=psf 
+tran tran stop=400p maxstep=1ps write="spectre.ic" writefinal="spectre.fc" \
+    annotate=status maxiters=5 
+finalTimeOP info what=oppoint where=rawfile
+modelParameter info what=models where=rawfile
+element info what=inst where=rawfile
+outputParameter info what=output where=rawfile
+designParamVals info what=parameters where=rawfile
+primitives info what=primitives where=rawfile
+subckts info what=subckts where=rawfile
+save vin vout 
+saveOptions options save=allpub
+ahdl_include "/ecel/UFAD/tanvir.ahmed/Desktop/Verilog/CNTFET/example/nfet/veriloga/veriloga.va"
+ahdl_include "/ecel/UFAD/tanvir.ahmed/Desktop/Verilog/CNTFET/example/pfet/veriloga/veriloga.va"

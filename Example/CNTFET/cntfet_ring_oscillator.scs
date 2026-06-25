@@ -1,0 +1,47 @@
+// Generated for: spectre
+// Generated on: May 18 06:36:47 2026
+// Design library name: example
+// Design cell name: RO
+// Design view name: schematic
+simulator lang=spectre
+global 0
+parameters vdd=0.5
+include "/apps/cds/IC618/local/GPDK045/gpdk045/../models/spectre/gpdk045.scs" section=mc
+
+// Library name: example
+// Cell name: RO
+// View name: schematic
+V1 (vdd 0) vsource dc=vdd type=dc
+I10 (vout3 vout2 0) CNTFET_VA tox=2 Lg=10 eps_ox=3.9 V_th=0.258 Wid=1 \
+        smooth_delta=1e-12 vds_floor=1e-06 gmin_ds=1e-12
+I6 (vout2 vout1 0) CNTFET_VA tox=2 Lg=10 eps_ox=3.9 V_th=0.258 Wid=1 \
+        smooth_delta=1e-12 vds_floor=1e-06 gmin_ds=1e-12
+I0 (vout1 vout3 0) CNTFET_VA tox=2 Lg=10 eps_ox=3.9 V_th=0.258 Wid=1 \
+        smooth_delta=1e-12 vds_floor=1e-06 gmin_ds=1e-12
+I9 (vout3 vout2 vdd) CNTFET_PFET_VA tox=2 Lg=10 eps_ox=3.9 V_th=-0.258 \
+        Wid=1 smooth_delta=1e-12 vds_floor=1e-06 gmin_ds=1e-12
+I8 (vout2 vout1 vdd) CNTFET_PFET_VA tox=2 Lg=10 eps_ox=3.9 V_th=-0.258 \
+        Wid=1 smooth_delta=1e-12 vds_floor=1e-06 gmin_ds=1e-12
+I1 (vout1 vout3 vdd) CNTFET_PFET_VA tox=2 Lg=10 eps_ox=3.9 V_th=-0.258 \
+        Wid=1 smooth_delta=1e-12 vds_floor=1e-06 gmin_ds=1e-12
+C2 (vout1 0) capacitor c=20a
+C1 (vout2 0) capacitor c=20a
+C0 (vout3 0) capacitor c=20a
+nodeset vout3=0.5 vout2=0 vout1=0.5 
+simulatorOptions options psfversion="1.4.0" reltol=1e-3 vabstol=1e-6 \
+    iabstol=1e-12 temp=27 tnom=27 scalem=1.0 scale=1.0 gmin=1e-12 rforce=1 \
+    maxnotes=5 maxwarns=5 digits=5 cols=80 pivrel=1e-3 \
+    sensfile="../psf/sens.output" checklimitdest=psf 
+tran tran stop=120p maxstep=0.5p ic=node skipdc=yes write="spectre.ic" \
+    writefinal="spectre.fc" annotate=status maxiters=5 
+finalTimeOP info what=oppoint where=rawfile
+modelParameter info what=models where=rawfile
+element info what=inst where=rawfile
+outputParameter info what=output where=rawfile
+designParamVals info what=parameters where=rawfile
+primitives info what=primitives where=rawfile
+subckts info what=subckts where=rawfile
+save vout2 vout3 vout1 
+saveOptions options save=allpub
+ahdl_include "/ecel/UFAD/tanvir.ahmed/Desktop/Verilog/CNTFET/example/nfet/veriloga/veriloga.va"
+ahdl_include "/ecel/UFAD/tanvir.ahmed/Desktop/Verilog/CNTFET/example/pfet/veriloga/veriloga.va"
